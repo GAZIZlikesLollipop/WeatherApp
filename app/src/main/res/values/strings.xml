@@ -1,0 +1,116 @@
+<resources>
+    <string name="app_name" translatable="false">WeatherApp</string>
+    <string name="weather">Weather for</string>
+    <string name="error">Error, pls try again.</string>
+    <string name="try_again">try again</string>
+    <string name="feels_like">feels like</string>
+    <string name="more">more info</string>
+    <string-array name="more_dt">
+        <item>temp</item>
+        <item>pressure</item>
+        <item>humidity</item>
+        <item>visibility</item>
+        <item>wind</item>
+        <item>cloud cover</item>
+    </string-array>
+    <string-array name="rain_snow">
+        <item>rain speed:</item>
+        <item>snow speed:</item>
+    </string-array>
+    <string name="settings">App settings</string>
+    <string name="units">Units</string>
+    <string name="city">City choose</string>
+    <string name="current">current:</string>
+    <string-array name="lang">
+        <item>Language choose:</item>
+    </string-array>
+
+    <string-array name="mdcard">
+        <item>now</item>
+        <item>avg</item>
+        <item>grnd</item>
+        <item>sea</item>
+        <item>speed</item>
+        <item>gust</item>
+        <item>max</item>
+        <item>min</item>
+    </string-array>
+
+    <string-array name="uzb_cities">
+        <item>Tashkent</item>
+        <item>Namangan</item>
+        <item>Samarkand</item>
+        <item>Andijan</item>
+        <item>Nukus</item>
+        <item>Fergana</item>
+        <item>Kokand</item>
+        <item>Qarshi</item>
+        <item>Bukhara</item>
+        <item>Margilan</item>
+        <item>Termez</item>
+        <item>Jizzakh</item>
+        <item>Angren</item>
+        <item>Chirchiq</item>
+        <item>Navoiy</item>
+        <item>Urgench</item>
+        <item>Olmaliq</item>
+        <item>Shahrisabz</item>
+        <item>Bekobod</item>
+    </string-array>
+    <string-array name="capitals">
+        <item>London</item>
+        <item>Washington</item>
+        <item>Buenos Aires</item>
+        <item>Beijing</item>
+        <item>Cairo</item>
+        <item>Canberra</item>
+        <item>Paris</item>
+        <item>Ottawa</item>
+        <item>Brasília</item>
+        <item>Tokyo</item>
+        <item>Nairobi</item>
+        <item>Wellington</item>
+        <item>Berlin</item>
+        <item>Mexico City</item>
+        <item>Santiago</item>
+        <item>Delhi</item>
+        <item>Cape Town</item>
+        <item>Madrid</item>
+        <item>Bogotá</item>
+        <item>Seoul</item>
+        <item>Lagos</item>
+        <item>Rome</item>
+        <item>Jakarta</item>
+        <item>Warsaw</item>
+    </string-array>
+    <string-array name="air_purity_level">
+        <item>Good</item>
+        <item>Fair</item>
+        <item>Moderate</item>
+        <item>Poor</item>
+        <item>Very poor</item>
+        <item>Neutral</item>
+    </string-array>
+    <string-array name="air_purity_names">
+        <item>toxic gas(CO):</item>
+        <item>vehicle emissions(NO₂):</item>
+        <item>smog(O₃):</item>
+        <item>industrial gas(SO₂):</item>
+        <item>fine dust(PM2.5):</item>
+        <item>large dust(PM10):</item>
+        <item>chemicals(NH₃):</item>
+    </string-array>
+    <string name="airPollution">Air Pollution</string>
+    <string name="vis">full</string>
+    <string-array name="sun">
+        <item>sun</item>
+        <item>sunrise</item>
+        <item>sunset</item>
+    </string-array>
+    <string-array name="forecast_info">
+        <item>date:</item>
+        <item>hum:</item>
+        <item>icons:</item>
+        <item>temp:</item>
+    </string-array>
+</resources>

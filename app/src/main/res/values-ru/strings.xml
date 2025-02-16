@@ -1,0 +1,118 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <string name="weather">Погода для</string>
+    <string name="error">Ошибка, пожайлуста попробуйте позже.</string>
+    <string name="try_again">попробовать позже</string>
+    <string name="feels_like">по ощущениям</string>
+    <string name="more">подробнее</string>
+    <string-array name="more_dt">
+        <item>темп-ра</item>
+        <item>давление</item>
+        <item>влажность</item>
+        <item>видимость</item>
+        <item>ветер</item>
+        <item>облачность</item>
+    </string-array>
+    <string-array name="rain_snow">
+        <item>скорость дождя:</item>
+        <item>скорость снега:</item>
+    </string-array>
+    <string name="settings">Настройки</string>
+    <string name="units">Величины</string>
+    <string name="city">Выбор города</string>
+    <string name="current">текущий:</string>
+    <string-array name="lang">
+        <item>Выбор языка:</item>
+    </string-array>
+
+    <string-array name="mdcard">
+        <item>сейчас</item>
+        <item>сред</item>
+        <item>земля</item>
+        <item>море</item>
+        <item>скорость</item>
+        <item>порывы</item>
+        <item>макс-ый</item>
+        <item>мин-ый</item>
+    </string-array>
+        <string-array name="uzb_cities">
+            <item>Ташкент</item>
+            <item>Наманган</item>
+            <item>Самарканд</item>
+            <item>Андижан</item>
+            <item>Нукус</item>
+            <item>Фергана</item>
+            <item>Коканд</item>
+            <item>Карши</item>
+            <item>Бухара</item>
+            <item>Маргилан</item>
+            <item>Термез</item>
+            <item>Джизак</item>
+            <item>Ангрен</item>
+            <item>Чирчик</item>
+            <item>Навои</item>
+            <item>Ургенч</item>
+            <item>Алмалык</item>
+            <item>Шахрисабз</item>
+            <item>Бекабад</item>
+        </string-array>
+
+        <string-array name="capitals">
+            <item>Лондон</item>
+            <item>Вашингтон</item>
+            <item>Буэнос-Айрес</item>
+            <item>Пекин</item>
+            <item>Каир</item>
+            <item>Канберра</item>
+            <item>Париж</item>
+            <item>Оттава</item>
+            <item>Бразилиа</item>
+            <item>Токио</item>
+            <item>Найроби</item>
+            <item>Веллингтон</item>
+            <item>Берлин</item>
+            <item>Мехико</item>
+            <item>Сантьяго</item>
+            <item>Дели</item>
+            <item>Кейптаун</item>
+            <item>Мадрид</item>
+            <item>Богота</item>
+            <item>Сеул</item>
+            <item>Лагос</item>
+            <item>Рим</item>
+            <item>Джакарта</item>
+            <item>Варшава</item>
+        </string-array>
+
+    <string-array name="air_purity_level">
+        <item>Хороший</item>
+        <item>Удовлетворительный</item>
+        <item>Умеренный</item>
+        <item>Плохой</item>
+        <item>Очень плохой</item>
+        <item>Нейтральный</item>
+    </string-array>
+
+    <string-array name="air_purity_names">
+        <item>токсичный газ(CO):</item>
+        <item>выхлопные газы(NO₂):</item>
+        <item>смог(O₃):</item>
+        <item>промышленные выбросы(SO₂):</item>
+        <item>мелкая пыль(PM2.5):</item>
+        <item>грубая пыль(PM10):</item>
+        <item>химикаты(NH₃):</item>
+    </string-array>
+    <string name="airPollution">Загрязнение воздуха</string>
+    <string name="vis">неограниченная</string>
+    <string-array name="sun">
+        <item>солнце</item>
+        <item>восход</item>
+        <item>закат</item>
+    </string-array>
+    <string-array name="forecast_info">
+        <item>дата:</item>
+        <item>влаж-ть:</item>
+        <item>иконки:</item>
+        <item>темп-ра:</item>
+    </string-array>
+</resources>

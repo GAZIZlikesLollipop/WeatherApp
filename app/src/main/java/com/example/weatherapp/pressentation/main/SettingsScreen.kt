@@ -3,6 +3,11 @@ package com.example.weatherapp.pressentation.main
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,7 +22,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowForward
-import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -64,6 +68,8 @@ fun SettingsScreen(
     }
     val context = LocalContext.current
     var cityChoose : Boolean by rememberSaveable{ mutableStateOf(false)}
+    var units by rememberSaveable { mutableStateOf(viewModel.units) }
+
     val items = listOf(
         UnitBuuton(
             unit = Units().standard,
@@ -157,7 +163,7 @@ fun SettingsScreen(
                                 viewModel.language = "en"
                                 viewModel.language
                             }else{viewModel.language = "ru"
-                            viewModel.language})
+                                viewModel.language})
                         },
                     colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface),
                     elevation = CardDefaults.cardElevation(8.dp),
@@ -177,7 +183,11 @@ fun SettingsScreen(
                 }
             }
 
-            if(cityChoose){
+            AnimatedVisibility(
+                visible = cityChoose,
+                enter = fadeIn() + slideInVertically(),
+                exit = fadeOut() + slideOutVertically()
+            ) {
                 Card(
                     Modifier
                         .padding(16.dp)

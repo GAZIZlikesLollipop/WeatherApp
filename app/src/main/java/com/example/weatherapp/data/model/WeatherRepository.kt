@@ -11,7 +11,7 @@ interface WeatherRepository {
 }
 
 class NetworkWeatherRepository(private val weatherApi: WeatherApi ): WeatherRepository{
-    private val apiKey = "YOUR_API_KEY"
+    private val apiKey = "1984a519d90c1a7ea3f185dd67a2a818"
     override suspend fun getCurrentWeather(lat: Double, lon: Double, lang: String, units: String): CurrentWeatherResponse {
         return weatherApi.getCurrentWeather(lat,lon,lang,apiKey,units)
     }

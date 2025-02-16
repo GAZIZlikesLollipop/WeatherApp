@@ -10,7 +10,7 @@ interface WeatherRepository {
     suspend fun getAirPollution(latitude : Double, longitude : Double): List<AirPollutionList>
 }
 
-class NetworkWeatherRepository(val weatherApi: WeatherApi ): WeatherRepository{
+class NetworkWeatherRepository(private val weatherApi: WeatherApi ): WeatherRepository{
     private val apiKey = "YOUR_API_KEY"
     override suspend fun getCurrentWeather(lat: Double, lon: Double, lang: String, units: String): CurrentWeatherResponse {
         return weatherApi.getCurrentWeather(lat,lon,lang,apiKey,units)

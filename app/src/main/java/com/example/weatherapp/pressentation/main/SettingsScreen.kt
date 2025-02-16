@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ArrowForward
 import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material3.Button
@@ -223,7 +224,7 @@ fun SettingsScreen(
                                 ){
                                     Text(text, style = MaterialTheme.typography.headlineLarge, color = MaterialTheme.colorScheme.onBackground,modifier = Modifier.weight(2f))
                                     Icon(
-                                        imageVector = Icons.Rounded.ArrowForward,
+                                        imageVector = Icons.AutoMirrored.Rounded.ArrowForward,
                                         contentDescription = null,
                                         tint = MaterialTheme.colorScheme.onBackground,
                                         modifier = Modifier.size(50.dp)
@@ -243,7 +244,7 @@ fun SettingsScreen(
                                 ){
                                     Text(text, style = MaterialTheme.typography.headlineLarge, color = MaterialTheme.colorScheme.onBackground,modifier = Modifier.weight(2f))
                                     Icon(
-                                        imageVector = Icons.Rounded.ArrowForward,
+                                        imageVector = Icons.AutoMirrored.Rounded.ArrowForward,
                                         contentDescription = null,
                                         tint = MaterialTheme.colorScheme.onBackground,
                                         modifier = Modifier.size(50.dp)

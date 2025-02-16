@@ -27,8 +27,8 @@ import java.io.IOException
 
 sealed interface WeatherUiState {
     data class Success(val info: CurrentWeatherResponse): WeatherUiState
-    object Error : WeatherUiState
-    object Loading : WeatherUiState
+    data object Error : WeatherUiState
+    data object Loading : WeatherUiState
 }
 
 class WeatherViewModel(

@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.work.Data
 import com.example.weatherapp.data.model.AirPollutionList
 import com.example.weatherapp.data.model.CurrentWeatherResponse
 import com.example.weatherapp.data.model.ForecastCity
@@ -69,6 +70,18 @@ class WeatherViewModel(
         }
     }
 
+    fun getWeatherData(): Data {
+        // Эти данные могут быть получены после вызова API
+        val temperature = _forecastList.value?.firstOrNull()?.main?.temp.toString()
+        val description = _forecastList.value?.firstOrNull()?.weather?.firstOrNull()?.description.toString()
+
+        // Возвращаем данные для передачи в WorkManager
+        return Data.Builder()
+            .putString("temperature", temperature)
+            .putString("description", description)
+            .build()
+    }
+
     fun fetchCurrentWeather(){
         viewModelScope.launch {
             val (lat, lon) = fetchCoordinates().await()
@@ -125,10 +138,6 @@ class WeatherViewModel(
                 Log.e("ForecastApi", "HTTP Error: ${e.message}")
                 _forecastList.value = emptyList()
                 _forecastCity.value = null
-            }catch(e : Exception){
-                Log.e("ForecastApi", "Unknown Error! ${e.message}")
-                _forecastList.value = emptyList()
-                _forecastCity.value = null
             }
         }
     }
@@ -154,9 +163,6 @@ class WeatherViewModel(
                 _airPollution.value = emptyList()
             }catch (e: HttpException) {
                 Log.e("AirPollution", "HTTP Error: ${e.message}")
-                _airPollution.value = emptyList()
-            }catch(e : Exception){
-                Log.e("AP Unknown Error", "Unknown Error: ${e.message}")
                 _airPollution.value = emptyList()
             }
         }

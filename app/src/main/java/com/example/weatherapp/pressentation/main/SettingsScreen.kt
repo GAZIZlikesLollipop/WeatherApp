@@ -49,7 +49,7 @@ import com.example.weatherapp.data.model.Units
 import com.example.weatherapp.pressentation.components.SettingsTopBar
 import java.util.Locale
 
-data class UnitBuuton(
+data class UnitButton(
     val unit : String,
     val tempUn : String,
     val speedUn : String
@@ -68,20 +68,19 @@ fun SettingsScreen(
     }
     val context = LocalContext.current
     var cityChoose : Boolean by rememberSaveable{ mutableStateOf(false)}
-    var units by rememberSaveable { mutableStateOf(viewModel.units) }
 
     val items = listOf(
-        UnitBuuton(
+        UnitButton(
             unit = Units().standard,
             tempUn = "K",
             speedUn = "met/s"
         ),
-        UnitBuuton(
+        UnitButton(
             unit = Units().metric,
             tempUn = "C°",
             speedUn = "km/h"
         ),
-        UnitBuuton(
+        UnitButton(
             unit = Units().imperial,
             tempUn = "F°",
             speedUn = "mil/s"

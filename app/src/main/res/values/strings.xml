@@ -24,7 +24,12 @@
     <string-array name="lang">
         <item>Language choose:</item>
     </string-array>
-
+    <string-array name="forecast_notifcation">
+        <item>Tomorrow\'s weather</item>
+        <item>tomorrow</item>
+        <item>Today\'s weather</item>
+        <item>today</item>
+    </string-array>
     <string-array name="mdcard">
         <item>now</item>
         <item>avg</item>

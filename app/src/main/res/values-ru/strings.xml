@@ -24,7 +24,12 @@
     <string-array name="lang">
         <item>Выбор языка:</item>
     </string-array>
-
+    <string-array name="forecast_notifcation">
+        <item>Погода на завтра</item>
+        <item>завтра</item>
+        <item>Погода на сегодня</item>
+        <item>сегодня</item>
+    </string-array>
     <string-array name="mdcard">
         <item>сейчас</item>
         <item>сред</item>

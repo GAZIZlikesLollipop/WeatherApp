@@ -38,15 +38,11 @@ class WeatherWorker(
             val latitude = geocodingResponse.firstOrNull()?.lat ?: 0.0
             val longitude = geocodingResponse.firstOrNull()?.lon ?: 0.0
 
-            val currentTime = LocalTime.now() // Получаем текущее время
+            val currentTime = LocalTime.now()
             val evening19 = LocalTime.of(19, 0)
-            val evening21 = LocalTime.of(21, 0)
 
-            val outPut : Quadruple<Int, Int, Int, String> = when {
-                currentTime.isAfter(evening21) -> Quadruple(4, 1, 0, night_channel)
-                currentTime.isAfter(evening19) -> Quadruple(5, 1, 0, night_channel)
-                else -> Quadruple(1, 3, 2, day_channel)
-            }
+            val outPut : Quadruple<Int, Int, Int, String> = if(currentTime.isAfter(evening19)) Quadruple(4, 1, 0, night_channel) else  Quadruple(1, 3, 2, day_channel)
+
 
             val weatherResponse = weatherRepository.getWeatherForecast(latitude, longitude, language, units)
             val temperature = weatherResponse.list[outPut.first].main.temp
@@ -58,7 +54,7 @@ class WeatherWorker(
             return Result.success()
         } catch (e: Exception) {
             Log.e("WeatherWorker", "Ошибка при получении данных: ${e.message}")
-            return Result.retry() // Повторить попытку в случае ошибки
+            return Result.retry()
         }
     }
 }

@@ -9,7 +9,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.work.Data
 import com.example.weatherapp.data.model.AirPollutionList
 import com.example.weatherapp.data.model.CurrentWeatherResponse
 import com.example.weatherapp.data.model.ForecastCity
@@ -58,28 +57,14 @@ class WeatherViewModel(
         viewModelScope.launch {
             val userPreferences = userPreferencesRepository.getUserPreferences()
             city = userPreferences.first
-            Log.d("UserPreferences", "Selected city is $city")
             language = userPreferences.second
             Log.d("UserPreferences", "Current language is $language")
             units = userPreferencesRepository.getWeatherUnits()
-            Log.d("UserPreferences", "Current units is $units")
             fetchCurrentWeather()
             fetchWeatherForecast()
             fetchAirPollution()
             fetchTimeZone()
         }
-    }
-
-    fun getWeatherData(): Data {
-        // Эти данные могут быть получены после вызова API
-        val temperature = _forecastList.value?.firstOrNull()?.main?.temp.toString()
-        val description = _forecastList.value?.firstOrNull()?.weather?.firstOrNull()?.description.toString()
-
-        // Возвращаем данные для передачи в WorkManager
-        return Data.Builder()
-            .putString("temperature", temperature)
-            .putString("description", description)
-            .build()
     }
 
     fun fetchCurrentWeather(){
@@ -129,7 +114,6 @@ class WeatherViewModel(
                     )
                 }
                 _forecastCity.value = response.city
-                Log.d("ForecastApi", "ForecastData is success load!")
             }catch (e: IOException) {
                 Log.e("ForecastApi", "Network Error: ${e.message}")
                 _forecastList.value = emptyList()

@@ -13,8 +13,8 @@ object NotificationHelper {
     fun showNotification(context: Context, title: String, message: String, notifi_id : Int, channel_id : String) {
         // Используем applicationContext, чтобы избежать утечек Activity
         val appContext = context.applicationContext
-        val icon : Int = if(channel_id == "today_forecast_channel")R.drawable.rounded_clear_day_24 else R.drawable.outline_dark_mode_24
-        // Создаём Intent для открытия MainActivity при нажатии на уведомление
+        val icon: Int = if (channel_id.equals("today_forecast_channel", ignoreCase = true)) R.drawable.rounded_clear_day_24 else R.drawable.outline_dark_mode_24
+// Создаём Intent для открытия MainActivity при нажатии на уведомление
         val intent = Intent(appContext, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }

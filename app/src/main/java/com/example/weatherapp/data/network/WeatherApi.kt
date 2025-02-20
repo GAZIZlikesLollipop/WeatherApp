@@ -18,7 +18,7 @@ interface WeatherApi {
         @Query("units") units : String
     ): CurrentWeatherResponse
     @GET("geo/1.0/direct")
-    suspend fun getCoordinats(@Query("q") q : String, @Query("appid") appid: String): List<GeocodingResponse>
+    suspend fun getCoordinates(@Query("q") q : String, @Query("appid") appid: String): List<GeocodingResponse>
     @GET("/data/2.5/forecast")
     suspend fun getWeatherForecast(
         @Query("appid") appid : String,

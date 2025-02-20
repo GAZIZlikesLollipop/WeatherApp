@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         userPreferencesRepository = (applicationContext as MyApp).userPreferencesRepository
         weatherRepository = (applicationContext as MyApp).weatherRepository
-        val weatherViewModel : WeatherViewModel = ViewModelProvider(this, WeatherViewModelFactory(weatherRepository, userPreferencesRepository))[WeatherViewModel::class.java]
+        ViewModelProvider(this, WeatherViewModelFactory(weatherRepository, userPreferencesRepository))[WeatherViewModel::class.java]
 
         setContent {
             WeatherAppTheme {

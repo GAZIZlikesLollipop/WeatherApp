@@ -71,14 +71,22 @@ class WeatherViewModel(
         viewModelScope.launch {
             val (lat, lon) = fetchCoordinates().await()
             weatherUiState = try {
+                val response = weatherRepository.getCurrentWeather(
+                    lat = lat,
+                    lon = lon,
+                    lang = language,
+                    units = units
+                )
+
                 WeatherUiState.Success(
-                    weatherRepository.getCurrentWeather(
-                        lat = lat,
-                        lon = lon,
-                        lang = language,
-                        units = units
+                    response.copy(
+                        wind = response.wind.copy(
+                            speed = convertWindSpeed(response.wind.speed),
+                            gust = response.wind.gust?.let { convertWindSpeed(it) }
+                        )
                     )
                 )
+
             }catch (e: IOException) {
                 Log.e("BookViewModel", "Network Error: ${e.message}")
                 WeatherUiState.Error
@@ -86,6 +94,14 @@ class WeatherViewModel(
                 Log.e("BookViewModel", "HTTP Error: ${e.message}")
                 WeatherUiState.Error
             }
+        }
+    }
+
+    private fun convertWindSpeed(speed: Double): Double {
+        return when (units) {
+            Units().standard -> speed * 3.6 // м/с → км/ч
+            Units().imperial -> speed * 1609.344 * 1 / 1000 * 3600 // м/с → мили/ч
+            else -> speed
         }
     }
 
@@ -99,7 +115,13 @@ class WeatherViewModel(
     fun saveCity(cite : String){
         viewModelScope.launch {
             city = cite
-            userPreferencesRepository.saveUserPreferences(cite)
+            userPreferencesRepository.saveUserPreferences(cite, language)
+        }
+    }
+    fun saveLanguage(lang : String){
+        viewModelScope.launch {
+            language = lang
+            userPreferencesRepository.saveUserPreferences(city, lang)
         }
     }
 
@@ -108,11 +130,7 @@ class WeatherViewModel(
             val (lat, lon) = fetchCoordinates().await()
             try{
                 val response = weatherRepository.getWeatherForecast(lat = lat, lon = lon, lang = language, units = units)
-                _forecastList.value = response.list.map { forecast ->
-                    forecast.copy(
-                        weather = forecast.weather.map { it.copy(icon = it.icon.dropLast(1)) }
-                    )
-                }
+                _forecastList.value = response.list
                 _forecastCity.value = response.city
             }catch (e: IOException) {
                 Log.e("ForecastApi", "Network Error: ${e.message}")

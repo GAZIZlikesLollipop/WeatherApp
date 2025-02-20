@@ -31,7 +31,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -85,18 +84,6 @@ fun HomeScreen(
                     .background(gradient)) {
                 when (uiState) {
                     is WeatherUiState.Success -> {
-                        LaunchedEffect(viewModel.units == Units().metric) {
-                            when(viewModel.units){
-                                Units().standard -> {
-                                    if(uiState.info.wind.gust != null) uiState.info.wind.gust * 3.6
-                                    uiState.info.wind.speed * 3.6
-                                }
-                                Units().imperial ->{
-                                    if(uiState.info.wind.gust != null)  uiState.info.wind.gust * 1609.344 * 1 / 1000 * 3600
-                                    uiState.info.wind.speed * 1609.344 * 1/1000 * 3600
-                                }
-                            }
-                        }
                         aqi?.let { it1 ->
                             WeatherData(uiState.info,
                                 { viewModel.fetchCurrentWeather()
@@ -106,6 +93,7 @@ fun HomeScreen(
                                 }, isLoading, forecastList,forecastCity, viewModel.language, viewModel.timeZone, it1, viewModel.units
                             )
                         }
+
                     }
                     is WeatherUiState.Error -> { ErrorScreen(viewModel) }
 
@@ -222,7 +210,7 @@ private fun WeatherData(
                             color = textColor,
                         )
                         Text(
-                            "${stringResource(R.string.feels_like)} $temperature ${data.main.feels_like}",
+                            "${stringResource(R.string.feels_like)} $temperature ${data.main.feels}",
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.onBackground
                         )
@@ -255,12 +243,10 @@ private fun WeatherData(
                     }
                 }
                 Spacer(Modifier.padding(vertical = 8.dp))
-                if (forecastList != null) {
+                if (forecastList != null && forecastCity != null) {
                 TwoDayForecastCard(weatherIcon, temperature, forecastList, timeZone)
                 FiveDayForecastCard(forecastList, timeZone, language,temperature)
-                }
-                if (forecastCity != null) {
-                    MDCard(data, speed, temperature, aqi[0].components, forecastCity, timeZone)
+                MDCard(data, speed, temperature, aqi[0].components, forecastCity, timeZone)
                 }
             }
         }

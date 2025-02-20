@@ -17,7 +17,7 @@ class NetworkWeatherRepository(private val weatherApi: WeatherApi ): WeatherRepo
     }
 
     override suspend fun geoCodeCoordinates(city: String): List<GeocodingResponse> {
-        return weatherApi.getCoordinats(city, apiKey)
+        return weatherApi.getCoordinates(city, apiKey)
     }
 
     override suspend fun getWeatherForecast(lat: Double, lon: Double, lang: String, units: String): WeatherForecastResponse {
@@ -25,7 +25,7 @@ class NetworkWeatherRepository(private val weatherApi: WeatherApi ): WeatherRepo
     }
 
     override suspend fun getTimeZone(latitude: Double, longitude: Double): String {
-        return weatherApi.getTimeZone(latitude, longitude).iana_timezone
+        return weatherApi.getTimeZone(latitude, longitude).ianaTm
     }
 
     override suspend fun getAirPollution(latitude: Double, longitude: Double): List<AirPollutionList> {

@@ -89,14 +89,9 @@ fun SettingsScreen(
     Scaffold(
         topBar = { SettingsTopBar(navController)},
         content = {
-            Column(
-                Modifier
-                    .fillMaxSize()
-                    .padding(top = 150.dp)){
-                Card(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
+            Column(Modifier.fillMaxSize()
+                .padding(top = 150.dp)){
+                Card(Modifier.fillMaxWidth().padding(16.dp),
                     colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface),
                     elevation = CardDefaults.cardElevation(8.dp),
                     shape = RoundedCornerShape(24.dp)
@@ -108,15 +103,9 @@ fun SettingsScreen(
                         )
                         Row {
                             items.forEach{ item ->
-                                val color = if(item.unit == viewModel.units){
-                                    MaterialTheme.colorScheme.secondaryContainer
-                                }else{
-                                    MaterialTheme.colorScheme.surface
-                                }
+                                val color = if(item.unit == viewModel.units) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.surface
                                 Button(
-                                    onClick = {
-                                        viewModel.saveUnit(item.unit)
-                                    },
+                                    onClick = { viewModel.saveUnit(item.unit) },
                                     shape = RoundedCornerShape(0.dp),
                                     colors = ButtonDefaults.buttonColors(color)
                                 ) {
@@ -130,13 +119,7 @@ fun SettingsScreen(
                         }
                     }
                 }
-                Card(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                        .clickable {
-                            cityChoose = !cityChoose
-                        },
+                Card(Modifier.fillMaxWidth().padding(16.dp).clickable { cityChoose = !cityChoose },
                     colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface),
                     elevation = CardDefaults.cardElevation(8.dp),
                     shape = RoundedCornerShape(24.dp)
@@ -158,11 +141,9 @@ fun SettingsScreen(
                         .fillMaxWidth()
                         .padding(16.dp)
                         .clickable {
-                            setAppLocale(context, if(viewModel.language == "ru"){
-                                viewModel.language = "en"
-                                viewModel.language
-                            }else{viewModel.language = "ru"
-                                viewModel.language})
+                            val newLanguage = if (viewModel.language == "ru") "en" else "ru"
+                            viewModel.saveLanguage(newLanguage)
+                            setAppLocale(context, newLanguage)
                         },
                     colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface),
                     elevation = CardDefaults.cardElevation(8.dp),
@@ -219,10 +200,10 @@ fun SettingsScreen(
                                 )
                             }
                         }
-                        val uzb_cities = stringArrayResource(R.array.uzb_cities)
-                        val contry_capitals = stringArrayResource(R.array.capitals)
+                        val uzbCities = stringArrayResource(R.array.uzb_cities)
+                        val countryCapitals = stringArrayResource(R.array.capitals)
                         LazyColumn {
-                            items(uzb_cities){ text ->
+                            items(uzbCities){ text ->
                                 Row(
                                     Modifier
                                         .fillMaxWidth()
@@ -242,7 +223,7 @@ fun SettingsScreen(
                                 HorizontalDivider(Modifier.fillMaxWidth(), thickness = 2.dp)
                             }
 
-                            items(contry_capitals){text ->
+                            items(countryCapitals){ text ->
                                 Row(
                                     Modifier
                                         .fillMaxWidth()
@@ -270,11 +251,10 @@ fun SettingsScreen(
 }
 
 fun setAppLocale(context: Context, language: String) {
-
     val locale = Locale(language)
     Locale.setDefault(locale)
 
-    val config = Configuration()
+    val config = Configuration(context.resources.configuration)
     config.setLocale(locale)
 
     context.resources.updateConfiguration(config, context.resources.displayMetrics)

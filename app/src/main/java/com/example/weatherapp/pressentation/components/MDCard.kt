@@ -40,7 +40,7 @@ import com.example.weatherapp.data.model.CurrentWeatherResponse
 import com.example.weatherapp.data.model.ForecastCity
 import com.google.accompanist.flowlayout.FlowRow
 
-data class MDCardtem(
+data class MDCardItem(
     val icon: ImageVector,
     val name: String,
     val info: String,
@@ -52,24 +52,24 @@ fun MDCard(data: CurrentWeatherResponse, speed: String, temperature: String, pur
     val arr = stringArrayResource(R.array.mdcard)
     val visibility = if(data.main.visibility != null) "${data.main.visibility} km" else stringResource(R.string.vis)
     val wind : String = if(data.wind.gust != null) "${arr[4]}: ${data.wind.speed}\n${arr[5]}: ${data.wind.gust}" else "${arr[4]}: ${data.wind.speed}"
-    val temp = if(data.main.temp_max == data.main.temp_min) "${arr[1]}: ${data.main.temp_max}" else "${arr[6]}: ${data.main.temp_max}°\n${arr[7]}: ${data.main.temp_min}°"
+    val temp = if(data.main.maxTemp == data.main.minTemp) "${arr[1]}: ${data.main.maxTemp}" else "${arr[6]}: ${data.main.maxTemp}°\n${arr[7]}: ${data.main.minTemp}°"
     val items = listOf(
-        MDCardtem(
+        MDCardItem(
             icon = ImageVector.vectorResource(R.drawable.rounded_thermostat_24),
             name = "${list[0]} $temperature",
             info = temp
         ),
-        MDCardtem(
+        MDCardItem(
             icon = Icons.Default.Compress,
             name = list[1],
-            info = "${arr[2]}: ${data.main.grnd_level} hPa\n ${arr[3]}: ${data.main.pressure}"
+            info = "${arr[2]}: ${data.main.ground} hPa\n ${arr[3]}: ${data.main.pressure}"
         ),
-        MDCardtem(
+        MDCardItem(
             icon = Icons.Rounded.WaterDrop,
             name = list[2],
             info = "${data.main.humidity} %"
         ),
-        MDCardtem(
+        MDCardItem(
             icon = Icons.Default.Air,
             name = "${list[4]} $speed",
             info = wind,
@@ -85,12 +85,12 @@ fun MDCard(data: CurrentWeatherResponse, speed: String, temperature: String, pur
                 )
             }
         ),
-        MDCardtem(
+        MDCardItem(
             icon = Icons.Default.FilterDrama,
             name = list[5],
             info = "${data.clouds.all}%"
         ),
-        MDCardtem(
+        MDCardItem(
             icon = Icons.Default.Visibility,
             name = list[3],
             info = visibility
@@ -223,7 +223,7 @@ fun MDCard(data: CurrentWeatherResponse, speed: String, temperature: String, pur
                     Spacer(Modifier.padding(vertical = 1.dp))
                     Text("${pN[3]} ${pur.so2} μg/m3")
                     Spacer(Modifier.padding(vertical = 1.dp))
-                    Text("${pN[4]} ${pur.pm2_5} μg/m3")
+                    Text("${pN[4]} ${pur.pm25} μg/m3")
                     Spacer(Modifier.padding(vertical = 1.dp))
                     Text("${pN[5]} ${pur.pm10} μg/m3")
                     Spacer(Modifier.padding(vertical = 1.dp))

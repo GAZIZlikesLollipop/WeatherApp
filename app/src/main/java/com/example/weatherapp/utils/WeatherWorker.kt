@@ -20,8 +20,8 @@ class WeatherWorker(
     private val userPreferencesRepository = UserPreferencesRepository(context.dataStore)
     private val weatherRepository = NetworkWeatherRepository(RetrofitClient.weatherApi)
     private val name = context.resources.getStringArray(R.array.forecast_notifcation)
-    private val day_channel = "tomorrow_forecast_channel"
-    private val night_channel = "today_forecast_channel"
+    private val dayChannel = "tomorrow_forecast_channel"
+    private val nightChannel = "today_forecast_channel"
     @SuppressLint("NewApi")
     override suspend fun doWork(): Result {
         Log.d("WeatherWorker", "Work started!")
@@ -41,7 +41,7 @@ class WeatherWorker(
             val currentTime = LocalTime.now()
             val evening19 = LocalTime.of(19, 0)
 
-            val outPut : Quadruple<Int, Int, Int, String> = if(currentTime.isAfter(evening19)) Quadruple(4, 1, 0, night_channel) else  Quadruple(1, 3, 2, day_channel)
+            val outPut : Quadruple<Int, Int, Int, String> = if(currentTime.isAfter(evening19)) Quadruple(4, 1, 0, nightChannel) else  Quadruple(1, 3, 2, dayChannel)
 
 
             val weatherResponse = weatherRepository.getWeatherForecast(latitude, longitude, language, units)

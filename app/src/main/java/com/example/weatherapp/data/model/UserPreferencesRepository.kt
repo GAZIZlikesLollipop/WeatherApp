@@ -7,7 +7,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.first
 
 interface UserPreferences {
-    suspend fun saveUserPreferences(city: String, language: String? = null)
+    suspend fun saveUserPreferences(city: String, language: String)
     suspend fun getUserPreferences(): Pair<String, String>
     suspend fun saveWeatherUnits(units : String)
     suspend fun getWeatherUnits(): String
@@ -20,10 +20,10 @@ class UserPreferencesRepository(private val dataStore: DataStore<Preferences>): 
         val UNITS_KEY = stringPreferencesKey("units")
     }
 
-    override suspend fun saveUserPreferences(city: String, language: String?) {
+    override suspend fun saveUserPreferences(city: String, language: String) {
         dataStore.edit { mutablePreferences ->
             mutablePreferences[CITY_KEY] =  city
-            language?.let { mutablePreferences[LANGUAGE_KEY] = it }
+            mutablePreferences[LANGUAGE_KEY] = language
         }
     }
 
@@ -35,8 +35,8 @@ class UserPreferencesRepository(private val dataStore: DataStore<Preferences>): 
     }
 
     override suspend fun saveWeatherUnits(units: String) {
-        dataStore.edit { prefernces ->
-            prefernces[UNITS_KEY] = units
+        dataStore.edit { preferences ->
+            preferences[UNITS_KEY] = units
         }
     }
 

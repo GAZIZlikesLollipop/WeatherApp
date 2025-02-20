@@ -31,7 +31,7 @@ data class DayForecastData(
     val time: String,
     val icon: ImageVector,
     val temperature: Double,
-    val rain_chance: Double
+    val rainChance: Double
 )
 
 @SuppressLint("StateFlowValueCalledInComposition", "SuspiciousIndentation")
@@ -39,13 +39,13 @@ data class DayForecastData(
 fun TwoDayForecastCard(icon: ImageVector, temp: String, list : List<ForecastList>, timeZone: String) {
     val items = list.map { item ->
         DayForecastData(
-            time = convertLongToHours(item.dt, timeZone,),
+            time = convertLongToHours(item.dt, timeZone),
             icon = icon,
             temperature = item.main.temp,
-            rain_chance = item.pop
+            rainChance = item.pop
         )
     }
-    val nextDay = convertLongToDay(list[1].dt, timeZone)
+    val nextDay = getNextDay(list[1].dt, timeZone)
 
     Box(
         Modifier
@@ -97,7 +97,7 @@ fun TwoDayForecastCard(icon: ImageVector, temp: String, list : List<ForecastList
                             modifier = Modifier.size(24.dp)
                         )
                         Text(
-                            "${item.rain_chance}%",
+                            "${item.rainChance}%",
                             fontSize = 21.sp,
                             modifier = Modifier.offset(y = 3.dp)
                         )
@@ -116,25 +116,25 @@ fun convertLongToHours(timestamp: Long, timeZoneId: String): String {
     format.timeZone = TimeZone.getTimeZone(timeZoneId)
     return format.format(date)
 }
-fun convertLongToDay(timestamp: Long, timeZoneId: String): String {
-    val date = Date(timestamp * 1000)
-    val format = SimpleDateFormat("dd", Locale.getDefault())
-    format.timeZone = TimeZone.getTimeZone(timeZoneId)
-    return format.format(date)
+
+fun getNextDay(timestamp: Long, timeZoneId: String): Int {
+    val date = Calendar.getInstance(TimeZone.getTimeZone(timeZoneId))
+    date.timeInMillis = timestamp * 1000
+    return date.get(Calendar.DAY_OF_MONTH) + 1 // Возвращаем день месяца как Int
 }
+
 
 data class FiveForecastData(
     val date: String,
     val humidity: Int,
-    val dayIcon : Int,
-    val nightIcon: Int,
-    val dayTemp: Double,
-    val nightTemp: Double
+    val icon : Int,
+    val minTemp: Double,
+    val maxTemp: Double
 )
 @OptIn(ExperimentalLayoutApi::class)
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun FiveDayForecastCard(list: List<ForecastList>, timeZone: String, lang: String,temp: String,){
+fun FiveDayForecastCard(list: List<ForecastList>, timeZone: String, lang: String,temp: String){
 
     val context = LocalContext.current
 
@@ -142,10 +142,9 @@ fun FiveDayForecastCard(list: List<ForecastList>, timeZone: String, lang: String
         FiveForecastData(
             date = convertTSToDM(item.dt, timeZone, lang),
             humidity = item.main.humidity,
-            dayIcon = getWeatherIcon(context,"_${item.weather.first().icon}d"),
-            nightIcon = getWeatherIcon(context,"_${item.weather[0].icon}n"),
-            dayTemp = item.main.temp_max,
-            nightTemp = item.main.temp_min
+            icon = getWeatherIcon(context,"_${item.weather.first().icon}"),
+            minTemp = item.main.maxTemp,
+            maxTemp = item.main.minTemp
         )
     }
 
@@ -154,46 +153,28 @@ fun FiveDayForecastCard(list: List<ForecastList>, timeZone: String, lang: String
         colors = CardDefaults.cardColors(containerColor =  MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.15f)),
         modifier = Modifier
             .clickable {}
-            .padding(20.dp)
+            .padding(16.dp)
             .clip(RoundedCornerShape(36.dp))
             .fillMaxSize()
     ) {
         FlowColumn(
             modifier = Modifier
-                .padding(all = 20.dp)
+                .padding(18.dp)
                 .fillMaxSize()
         ) {
             Row(Modifier.fillMaxWidth()){
-                val info = stringArrayResource(R.array.forecast_info)
-                Text(
-                    info[0],
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.67f)
-                )
-                Text(
-                    info[1],
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.67f),
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(horizontal = 30.dp)
-                )
-                Text(
-                    info[2],
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.67f),
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(horizontal = 12.dp)
-                )
-                Text(
-                    info[3],
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.67f),
-                    modifier = Modifier.weight(1f)
-                )
+                stringArrayResource(R.array.forecast_info).forEach{info ->
+                    Text(
+                        info,
+                        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.67f)
+                    )
+                    Spacer(Modifier.padding(horizontal = 8.dp))
+                }
             }
             Spacer(Modifier.padding(vertical = 10.dp))
             val uniqueData = data.distinctBy { it.date }.take(6)
             uniqueData.forEach { dt ->
-                val dayIconRes = if (dt.dayIcon != 0) dt.dayIcon else R.drawable._04d
-                val nightIconRes = if (dt.nightIcon != 0) dt.nightIcon else R.drawable._09n
+                val dayIconRes = if (dt.icon != 0) dt.icon else R.drawable._04d
                 Row(Modifier.fillMaxWidth()) {
                     Text(
                         dt.date,
@@ -213,35 +194,36 @@ fun FiveDayForecastCard(list: List<ForecastList>, timeZone: String, lang: String
                         style = MaterialTheme.typography.titleMedium
                     )
 
-                    Spacer(Modifier.padding(horizontal = 8.dp))
+                    Spacer(Modifier.padding(horizontal = 12.dp))
                     Image(
                         painter = painterResource(dayIconRes),
                         contentDescription = null
                     )
-                    Image(
-                        painter = painterResource(nightIconRes),
-                        contentDescription = null
-                    )
 
-                    Spacer(Modifier.padding(horizontal = 6.dp))
-                    Text(
-                        "$temp${dt.dayTemp}  $temp${dt.nightTemp}",
-                        style = MaterialTheme.typography.titleMedium
-                    )
+                    Spacer(Modifier.padding(horizontal = 12.dp))
+                    if(dt.maxTemp == dt.minTemp) {
+                        Text(
+                            "$temp${dt.maxTemp}  $temp${dt.minTemp}",
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                    }else{
+                        Text(
+                            "$temp${dt.maxTemp}",
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                    }
                 }
-                Spacer(Modifier.padding(vertical = 4.dp))
-                }
+                Spacer(Modifier.padding(vertical = 3.dp))
             }
         }
     }
-
+}
 
 @SuppressLint("DiscouragedApi")
 fun getWeatherIcon(context: Context, iconName: String): Int {
     val id = context.resources.getIdentifier(iconName, "drawable", context.packageName)
     return if (id != 0) id else R.drawable._03d // Укажи резервную иконку
 }
-
 
 fun convertTSToDM(timestamp: Long, timeZoneId: String, lang : String): String {
     val date = Date(timestamp * 1000)

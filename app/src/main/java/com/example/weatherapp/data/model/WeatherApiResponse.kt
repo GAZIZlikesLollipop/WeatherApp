@@ -23,11 +23,11 @@ data class CurrentWeather(
 @Serializable
 data class CurrentMain(
     val temp: Double,
-    val feels_like: Double,
-    val temp_min: Double,
-    val temp_max: Double,
+    @SerialName("feels_like")val feels: Double,
+    @SerialName("temp_min")val minTemp: Double,
+    @SerialName("temp_max")val maxTemp: Double,
     val pressure : Int,
-    val grnd_level: Int,
+    @SerialName("grnd_level")val ground: Int,
     val humidity: Int,
     val dt : Long? = null,
     val visibility: Int? = null
@@ -96,7 +96,7 @@ data class ForecastSnow(
 )
 @Serializable
 data class GeoTimeZoneResponse(
-    val iana_timezone  : String
+    @SerialName("iana_timezone")val ianaTm  : String
 )
 @Serializable
 data class AirPollutionResponse(
@@ -110,7 +110,7 @@ data class AirPollutionList(
 )
 @Serializable
 data class AirComponents(
-    val pm2_5 : Double,
+    @SerialName("pm2_5")val pm25 : Double,
     val pm10 : Double,
     val co : Double,
     val o3 : Double,

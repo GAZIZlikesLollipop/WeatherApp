@@ -115,7 +115,7 @@
     <string-array name="forecast_info">
         <item>date:</item>
         <item>hum:</item>
-        <item>icons:</item>
+        <item>conditions:</item>
         <item>temp:</item>
     </string-array>
 </resources>

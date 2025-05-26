@@ -7,12 +7,15 @@ allows users to switch between different temperature units (Celsius, Fahrenheit,
 measurements in various formats. It also supports language switching between Russian and English.
 
 ![Main Screen Preview](images/image1.jpg)()
-
-<div style="display: flex; flex-direction: row;">
-   <img src="images/image1.jpg" alt="" style="margin: 5px;">
-   <img src="images/image2.jpg" alt="" style="margin: 5px;">
-   <img src="images/image3.jpg" alt="" style="margin: 5px;">
+![Main Screen Preview](images/image2.jpg)()
+![Main Screen Preview](images/image3.jpg)()
+<div style="display: flex; gap: 10px; align-items: center;">
+  <img src="images/image1.jpg" alt="Изображение 1" style="flex: 1; height: auto;">
+  <img src="images/image2.jpg" alt="Изображение 2" style="flex: 1; height: auto;">
+  <img src="images/image3.jpg" alt="Изображение 3" style="flex: 1; height: auto;">
+  <img src="images/image4.jpg" alt="Изображение 4" style="flex: 1; height: auto;">
 </div>
+![Settings screen Preview](images/image4.jpg)
   
 The app is built using:
 

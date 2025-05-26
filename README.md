@@ -6,8 +6,14 @@ This is a minimalistic Android weather display application designed to show curr
 allows users to switch between different temperature units (Celsius, Fahrenheit, and Kelvin) and view wind speed 
 measurements in various formats. It also supports language switching between Russian and English.
 
-![Main Screen Preview]()
+![Main Screen Preview](images/image1.jpg)()
 
+<div style="display: flex; flex-direction: row;">
+   <img src="images/image1.jpg" alt="" style="margin: 5px;">
+   <img src="images/image2.jpg" alt="" style="margin: 5px;">
+   <img src="images/image3.jpg" alt="" style="margin: 5px;">
+</div>
+  
 The app is built using:
 
 - **Kotlin** - For the modern Android development experience
